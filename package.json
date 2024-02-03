@@ -1,0 +1,17 @@
+{
+  "name": "mibandwithjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@abandonware/noble": "^1.9.2-23",
+    "chalk": "^5.3.0",
+    "enquirer": "^2.4.1"
+  }
+}
