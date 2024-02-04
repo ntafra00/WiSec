@@ -7,17 +7,17 @@ import { getCurrentDate, parseBatteryInfo, parseCurrentTimeInfo, parseStepsInfo 
 const END = -1;
 
 class Band {
-  static async findDevice (mac, timeout = 30000) {
+  static async findDevice (address, timeout = 30000) {
     return new Promise((res) => {
       timeout = setTimeout(() => {
         noble.stopScanning()
-        throw new Error('[search] timeout')
+        throw new Error('[Searching...] Timeout reached')
       }, timeout)
       const onDiscover = (peripheral) => {
-        console.log('[search] found', peripheral.address)
-        if (peripheral.address === mac.toLowerCase()) {
+        console.log('[Searching...] Device found', peripheral.address)
+        if (peripheral.address === address.toLowerCase()) {
           clearTimeout(timeout)
-          noble.stopScanning() // seems to be ignored
+          noble.stopScanning()
           noble.removeListener('discover', onDiscover)
           res(new this(peripheral))
         }
@@ -165,7 +165,7 @@ class Band {
   }
 
   async changeDateToSomethingInThePast() {
-    await this.write(CURRENT_TIME_CHARACTERISTIC_UUID, [0xe2,0x07,0x01,0x1e,0x00,0x00,0x00,0x00,0x00,0x00,0x16])
+    await this.write(CURRENT_TIME_CHARACTERISTIC_UUID, [0xd0,0x07,0xc,0x07,0x00,0x00,0x00,0x04,0x00,0x00,0x16])
   }
 
   async resetCurrentDate() {
